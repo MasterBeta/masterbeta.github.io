@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://MasterBeta.github.io/sitemap.xml 
+Sitemap: http://lifengzhong.info/sitemap.xml 
