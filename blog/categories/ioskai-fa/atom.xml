@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: iOS开发 | MasterBeta的博客]]></title>
+  <link href="http://lifengzhong.info/blog/categories/ioskai-fa/atom.xml" rel="self"/>
+  <link href="http://lifengzhong.info/"/>
+  <updated>2014-03-06T22:57:37+08:00</updated>
+  <id>http://lifengzhong.info/</id>
+  <author>
+    <name><![CDATA[lifengzhong]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[iOS的越狱检测]]></title>
+    <link href="http://lifengzhong.info/blog/2014/03/06/iosde-yue-yu-jian-ce/"/>
+    <updated>2014-03-06T22:47:58+08:00</updated>
+    <id>http://lifengzhong.info/blog/2014/03/06/iosde-yue-yu-jian-ce</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+</feed>
