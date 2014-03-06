@@ -4,7 +4,7 @@
   <title><![CDATA[MasterBeta的博客]]></title>
   <link href="http://lifengzhong.info/atom.xml" rel="self"/>
   <link href="http://lifengzhong.info/"/>
-  <updated>2014-03-06T22:57:37+08:00</updated>
+  <updated>2014-03-07T00:57:17+08:00</updated>
   <id>http://lifengzhong.info/</id>
   <author>
     <name><![CDATA[lifengzhong]]></name>
@@ -18,7 +18,87 @@
     <link href="http://lifengzhong.info/blog/2014/03/06/iosde-yue-yu-jian-ce/"/>
     <updated>2014-03-06T22:47:58+08:00</updated>
     <id>http://lifengzhong.info/blog/2014/03/06/iosde-yue-yu-jian-ce</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>在许多应用场景中，基于安全或其他考虑，都需要检测用户的iOS设备是否已经越狱。由于iOS沙箱机制的存在，许多在普通的系统上很容易能够做到的事情在iOS系统上都变的不可能了；而如果设备越狱，沙箱机制完全被干掉，许多原先不敢想的事情都能做到了，这也是目前大多数越狱检测的思路。</p>
+
+<h2>方法一：判断是否安装越狱专有应用</h2>
+
+<p>检测手机上是否安装有越狱手机专属应用是最常见的越狱检测方式，比如Cydia，检测的方法包括路径检测与URL Schema检测。</p>
+
+<h3>路径检测</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">if</span><span class="p">([[</span><span class="n">NSFileManager</span> <span class="n">defaultManager</span><span class="p">]</span> <span class="nl">fileExistsAtPath:</span> <span class="s">@&quot;/Applications/Cydia.app&quot;</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>URL Schema检测</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">if</span> <span class="p">([[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">]</span> <span class="nl">canOpenURL:</span><span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="s">@&quot;cydia://&quot;</span><span class="p">]])</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>除了Cydia，在天朝手机上的一些特色手机应用也可以作为越狱检测的一个因子，比如baidu输入法，sougou输入法等，例如检测sougou输入法是否安装。</p>
+
+<h3>Sougou输入法检测</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">if</span><span class="p">([[</span><span class="n">NSFileManager</span> <span class="n">defaultManager</span><span class="p">]</span> <span class="nl">fileExistsAtPath:</span><span class="s">@&quot;/Applications/SogouSettings.app&quot;</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>方法二：检测越狱后特有工具或库</h2>
+
+<p>某些工具，例如sshd, gdb及bash等，只在越狱后的手机上才会存在，检测这些工具也是检测越狱的一种有效手段。</p>
+
+<h3>gdb检测</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">if</span><span class="p">([[</span><span class="n">NSFileManager</span> <span class="n">defaultManager</span><span class="p">]</span> <span class="nl">fileExistsAtPath:</span><span class="s">@&quot;/usr/bin/gdb&quot;</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>sshd检测</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">if</span><span class="p">([[</span><span class="n">NSFileManager</span> <span class="n">defaultManager</span><span class="p">]</span> <span class="nl">fileExistsAtPath:</span><span class="s">@&quot;/usr/sbin/sshd&quot;</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>除了特定工具，一些特殊的lib也是越狱手机专用，比如Cydia下众多插件都依赖的MobileSubstrate.dylib。</p>
+
+<h3>MobileSubstrate检测</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">if</span><span class="p">([[</span><span class="n">NSFileManager</span> <span class="n">defaultManager</span><span class="p">]</span> <span class="nl">fileExistsAtPath:</span><span class="s">@&quot;/Library/MobileSubstrate/MobileSubstrate.dylib&quot;</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>PS:</strong> Mobile Substrate从0.9.5之后加入64位处理器支持，并更名为Cydia Substrate，所以检测路径相应更改为&#8221;/Library/Frameworks/ CydiaSubstrate.framework/CydiaSubstrate.framework&#8221;</p>
 ]]></content>
   </entry>
   
