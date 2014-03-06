@@ -4,7 +4,7 @@
   <title><![CDATA[MasterBeta的博客]]></title>
   <link href="http://lifengzhong.info/atom.xml" rel="self"/>
   <link href="http://lifengzhong.info/"/>
-  <updated>2014-02-18T21:01:45+08:00</updated>
+  <updated>2014-03-06T22:48:44+08:00</updated>
   <id>http://lifengzhong.info/</id>
   <author>
     <name><![CDATA[lifengzhong]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[iOS的越狱检测]]></title>
+    <link href="http://lifengzhong.info/blog/2014/03/06/iosde-yue-yu-jian-ce/"/>
+    <updated>2014-03-06T22:47:58+08:00</updated>
+    <id>http://lifengzhong.info/blog/2014/03/06/iosde-yue-yu-jian-ce</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Hello World]]></title>
